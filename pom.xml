@@ -54,11 +54,13 @@
             <version>3.15</version>
         </dependency>
         <dependency>
-            <groupId>com.aspose</groupId>
-            <artifactId>aspose-ocr</artifactId>
-            <version>17.3</version>
-        </dependency>
-        <dependency>
+    <groupId>com.aspose</groupId>
+    <artifactId>aspose-ocr</artifactId>
+    <version>17.3</version>
+    <scope>system</scope>
+    <systemPath>${project.basedir}/libs/aspose-ocr-17.3.jar</systemPath>
+</dependency>
+ <dependency>
             <groupId>org.bytedeco.javacpp-presets</groupId>
             <artifactId>tesseract</artifactId>
             <version>3.04-1.1</version>
