@@ -1,23 +1,24 @@
-# ---- Stage 1: Build with Maven ----
-FROM maven:3.9.6-eclipse-temurin-8 AS build
+# Stage 1: Build
+FROM maven:3.9.6-eclipse-temurin-17 AS build
 
-# Set working directory
 WORKDIR /app
 
-# Copy the entire project
+# Copy everything into container
 COPY . .
 
-# Build the project and skip tests
+# Make sure local aspose jar is available
+RUN ls libs/aspose-ocr-17.3.jar
+
+# Build with Maven, skipping tests
 RUN mvn clean package -DskipTests
 
-# ---- Stage 2: Create minimal runtime image ----
-FROM eclipse-temurin:8-jre
+# Stage 2: Runtime
+FROM eclipse-temurin:17-jre
 
-# Set working directory
 WORKDIR /app
 
-# Copy the built jar from the build stage
+# Copy JAR from build stage
 COPY --from=build /app/target/*.jar app.jar
 
-# Run the application
+# Run the app
 ENTRYPOINT ["java", "-jar", "app.jar"]
